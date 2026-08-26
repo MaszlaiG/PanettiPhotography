@@ -1,5 +1,7 @@
 # Panetti Photography — weboldal
 
+**🌐 Élő oldal:** <https://maszlaig.github.io/PanettiPhotography/>
+
 Palicskó Anett (Panetti Photography, Nyírbátor) fotós vállalkozásának weboldala.
 Statikus oldal — nincs szükség szerverre, bármelyik böngészőben megnyitható és
 bármelyik tárhelyre feltölthető.
@@ -7,13 +9,18 @@ bármelyik tárhelyre feltölthető.
 ## Fájlok
 
 ```
-05_Panetti/
+06_PanettiPhotography/
 ├── index.html        → az oldal szerkezete (kétnyelvű: HU/EN)
-├── css/style.css     → megjelenés, arculat
-├── js/main.js        → nyelvváltó, galéria, lightbox, űrlap
-├── kepek/            → képek (jelenleg elegáns HELYŐRZŐK)
+├── css/style.css     → megjelenés, arculat, reszponzív elrendezés
+├── js/main.js        → nyelvváltó, galéria, lightbox, űrlap, hero-animáció
+├── kepek/            → képek (logó, favicon, galéria-almappák)
 └── README.md         → ez a fájl
 ```
+
+Az oldal teljesen **reszponzív**: asztali gép, tablet és mobil nézethez is
+igazodik (töréspontok: 960 / 900 / 720 / 460 px), telefonon a menü hamburger-
+menüvé alakul. A `csökkentett mozgás` (prefers-reduced-motion) beállítást is
+tiszteletben tartja.
 
 ## 0. A LOGÓ behelyezése (fontos!)
 

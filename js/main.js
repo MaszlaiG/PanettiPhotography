@@ -1,14 +1,9 @@
-/* ============================================================
-   PANETTI PHOTOGRAPHY — main.js
-   ============================================================ */
 (function () {
   "use strict";
 
-  /* ---------- Évszám ---------- */
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* ---------- Belépő (betöltő) animáció ---------- */
   var intro = document.getElementById("intro");
   if (intro) {
     var seen = false;
@@ -20,7 +15,6 @@
       try { sessionStorage.setItem("panetti-intro", "1"); } catch (e) {}
       document.body.style.overflow = "hidden";
 
-      // a logó vonalainak "kirajzolása" — a virágtól kifelé (data-delay szerint)
       var lns = intro.querySelectorAll(".intro__draw .ln");
       for (var i = 0; i < lns.length; i++) {
         var p = lns[i];
@@ -46,7 +40,6 @@
     }
   }
 
-  /* ---------- Nav: háttér görgetéskor ---------- */
   var nav = document.getElementById("nav");
   function onScroll() {
     if (window.scrollY > 40) nav.classList.add("is-scrolled");
@@ -55,7 +48,6 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---------- Mobil menü ---------- */
   var burger = document.getElementById("burger");
   var navLinks = document.getElementById("navLinks");
   var navScrim = document.getElementById("navScrim");
@@ -74,7 +66,7 @@
     document.body.classList.toggle("no-scroll", open);
   });
   if (navScrim) navScrim.addEventListener("click", closeMenu);
-  // Esc zárja a menüt
+
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && navLinks.classList.contains("is-open")) closeMenu();
   });
@@ -82,9 +74,6 @@
     a.addEventListener("click", closeMenu);
   });
 
-  /* ============================================================
-     NYELVVÁLTÁS (HU / EN)
-     ============================================================ */
   var META = {
     hu: {
       title: "Panetti Photography — Palicskó Anett | Fotós, Nyírbátor",
@@ -101,20 +90,18 @@
   function applyLang(lang) {
     document.documentElement.lang = lang;
 
-    // Szöveges tartalom
     document.querySelectorAll("[data-hu]").forEach(function (el) {
       var val = el.getAttribute("data-" + lang);
       if (val !== null) el.textContent = val;
     });
-    // Placeholderek
+
     document.querySelectorAll("[data-hu-ph]").forEach(function (el) {
       var val = el.getAttribute("data-" + lang + "-ph");
       if (val !== null) el.setAttribute("placeholder", val);
     });
-    // Cím
+
     if (META[lang]) document.title = META[lang].title;
 
-    // Gomb állapot
     document.querySelectorAll(".lang__opt").forEach(function (o) {
       o.classList.toggle("is-active", o.getAttribute("data-lang") === lang);
     });
@@ -134,9 +121,6 @@
     applyLang(currentLang === "hu" ? "en" : "hu");
   });
 
-  /* ============================================================
-     GALÉRIA SZŰRŐ
-     ============================================================ */
   var filters = document.getElementById("galleryFilters");
   var items = Array.prototype.slice.call(document.querySelectorAll(".gitem"));
   if (filters) {
@@ -153,9 +137,6 @@
     });
   }
 
-  /* ============================================================
-     LIGHTBOX
-     ============================================================ */
   var lb = document.getElementById("lightbox");
   var lbImg = document.getElementById("lbImg");
   var lbClose = document.getElementById("lbClose");
@@ -201,9 +182,6 @@
     if (e.key === "ArrowRight") step(1);
   });
 
-  /* ============================================================
-     REVEAL ANIMÁCIÓ
-     ============================================================ */
   var reveals = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
@@ -219,9 +197,6 @@
     reveals.forEach(function (r) { r.classList.add("is-visible"); });
   }
 
-  /* ============================================================
-     KAPCSOLAT ŰRLAP (mailto)
-     ============================================================ */
   var form = document.getElementById("contactForm");
   var hint = document.getElementById("formHint");
   if (form) {
@@ -255,9 +230,6 @@
     });
   }
 
-  /* ============================================================
-     HERO — lencse-bokeh részecskék (canvas)
-     ============================================================ */
   var canvas = document.getElementById("heroBokeh");
   if (canvas && canvas.getContext) {
     var ctx = canvas.getContext("2d");
@@ -313,7 +285,6 @@
       ctx.clearRect(0, 0, CW, CH);
       ctx.globalCompositeOperation = "lighter";
 
-      // anamorf fénycsíkok (mozis lencsefény)
       for (var s = 0; s < streaks.length; s++) {
         var st = streaks[s];
         st.tw += 0.01;
@@ -331,7 +302,6 @@
         ctx.restore();
       }
 
-      // bokeh — kerek + hatszögletű (kamera-rekesz jelleg)
       for (var i = 0; i < parts.length; i++) {
         var p = parts[i];
         p.tw += 0.02;
@@ -384,7 +354,7 @@
     build();
 
     if (reduce) {
-      render(); // statikus kép csökkentett mozgásnál
+      render();
     } else {
       startBokeh();
       var rt;
